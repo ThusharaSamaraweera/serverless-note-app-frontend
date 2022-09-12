@@ -5,9 +5,10 @@ import { Button, Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../lib/contextLib";
 import { useNavigate } from "react-router-dom";
+import LoadingButton from "./LoadingButton";
 
-export const Login:React.FC = () => {
-  const navigate = useNavigate()
+export const Login: React.FC = () => {
+  const navigate = useNavigate();
   const { setAuthenticated } = useAppContext();
   const [isLoading, setLoading] = useState(false);
 
@@ -37,18 +38,22 @@ export const Login:React.FC = () => {
     },
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
-    formik;
+  const {
+    errors,
+    touched,
+    values,
+    isSubmitting,
+    handleSubmit,
+    getFieldProps,
+    isValid,
+  } = formik;
 
   return (
     <div className="login">
       <div className="form">
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
-            <Form.Group
-              controlId="email"
-              className="email"
-            >
+            <Form.Group controlId="email" className="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 autoFocus
@@ -62,18 +67,20 @@ export const Login:React.FC = () => {
 
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                {...getFieldProps("password")}
-              />
+              <Form.Control type="password" {...getFieldProps("password")} />
               {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>
               )}
             </Form.Group>
 
-            <Button type="submit" className="mt-3">
+            <LoadingButton
+              type="submit"
+              className="mt-3"
+              isLoading={isLoading}
+              disabled={!isValid || isSubmitting}
+            >
               Login
-            </Button>
+            </LoadingButton>
           </Form>
         </FormikProvider>
       </div>
