@@ -36,16 +36,13 @@ export const Login = () => {
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
             <Form.Group
-              size="lg"
               controlId="email"
               className="email"
-              onSubmit={handleSubmit}
             >
               <Form.Label>Email</Form.Label>
               <Form.Control
                 autoFocus
                 type="email"
-                name="email"
                 {...getFieldProps("email")}
               />
               {errors.email && touched.email && (
@@ -53,11 +50,10 @@ export const Login = () => {
               )}
             </Form.Group>
 
-            <Form.Group size="lg" controlId="password">
+            <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
-                name="password"
                 {...getFieldProps("password")}
               />
               {errors.password && touched.password && (
@@ -65,7 +61,7 @@ export const Login = () => {
               )}
             </Form.Group>
 
-            <Button block="true" size="lg" type="submit" className="mt-3">
+            <Button type="submit" className="mt-3">
               Login
             </Button>
           </Form>

@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import {Navbar, Nav} from "react-bootstrap";
 import Routes from "./routes";
