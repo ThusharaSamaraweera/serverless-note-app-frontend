@@ -2,6 +2,7 @@ import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Form } from "react-bootstrap";
+import { Auth } from "aws-amplify";
 
 export const Login = () => {
   const LoginSchema = Yup.object().shape({
@@ -17,6 +18,12 @@ export const Login = () => {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       console.log(values);
+      try {
+        await Auth.signIn(values.email, values.password);
+        alert("Logged in");
+      } catch (error) {
+        console.log("error signing in", error);
+      }
     },
   });
 
