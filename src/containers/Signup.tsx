@@ -55,10 +55,8 @@ const Signup = () => {
     errors,
     touched,
     values,
-    isSubmitting,
     handleSubmit,
     getFieldProps,
-    isValid,
   } = formik;
 
   const renderForm = () => {

@@ -4,14 +4,14 @@ import { Navbar, Nav } from "react-bootstrap";
 import Routes from "./routes";
 import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./lib/contextLib";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const navigate = useNavigate()
-  
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(true);
+  const navigate = useNavigate();
+
   const onLoad = async () => {
     try {
       await Auth.currentSession()
@@ -26,7 +26,7 @@ const App = () => {
       console.log(e);
     }
     setIsAuthenticating(false);
-  }
+  };
 
   useEffect(() => {
     onLoad();
@@ -36,10 +36,13 @@ const App = () => {
     await Auth.signOut();
     setAuthenticated(false);
     navigate("/login");
-  }
+  };
 
-  return (
-    !isAuthenticating ? (
+  const handleOnClickProfile = () => {
+    navigate("/profile");
+  };
+
+  return !isAuthenticating ? (
     <div className="App container py-3">
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <LinkContainer to="/">
@@ -51,7 +54,10 @@ const App = () => {
         <Navbar.Collapse className="justify-content-end">
           <Nav activeKey={window.location.pathname}>
             {isAuthenticated ? (
-              <Nav.Link onClick={handleOnLogout} >Logout</Nav.Link>
+              <>
+                <Nav.Link onClick={handleOnLogout}>Logout</Nav.Link>
+                <Nav.Link onClick={handleOnClickProfile}>Profile</Nav.Link>
+              </>
             ) : (
               <>
                 <LinkContainer to="/signup">
@@ -68,11 +74,10 @@ const App = () => {
       <AppContext.Provider value={{ isAuthenticated, setAuthenticated }}>
         <Routes />
       </AppContext.Provider>
-      </div>
-    ) : (
-        <></>
-    )
+    </div>
+  ) : (
+    <></>
   );
-}
+};
 
 export default App;
