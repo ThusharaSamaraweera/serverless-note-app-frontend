@@ -52,6 +52,10 @@ const App = () => {
     navigate("/profile");
   };
 
+  const handleOnClickCreateNewNote = () => {
+    navigate("/create-new-note");
+  };
+
   return !isAuthenticating ? (
     <div className="App container py-3">
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
@@ -65,8 +69,9 @@ const App = () => {
           <Nav activeKey={window.location.pathname}>
             {isAuthenticated ? (
               <>
-                <Nav.Link onClick={handleOnLogout}>Logout</Nav.Link>
+                <Nav.Link onClick={handleOnClickCreateNewNote}>Create New Note</Nav.Link>
                 <Nav.Link onClick={handleOnClickProfile}>Profile</Nav.Link>
+                <Nav.Link onClick={handleOnLogout}>Logout</Nav.Link>
               </>
             ) : (
               <>

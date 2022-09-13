@@ -13,3 +13,8 @@ export interface IAuthUser {
   id: string;
   email: string;
 }
+
+export interface INewNote {
+  title: string;
+  content: string;
+}
