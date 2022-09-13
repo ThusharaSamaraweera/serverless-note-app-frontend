@@ -6,11 +6,19 @@ const createUserService = (profile: any) => {
     return API.post("users", "/users", {
       body: profile,
     });
-    
   } catch (error) {
     console.log(error);
     throw new Error(error as string);
   }
-}
+};
 
-export default {createUserService};
+const getUserProfileService = async (userId: string) => {
+  return API.get("users", `/users`, {
+    queryStringParameters: {
+      userId,
+    },
+  })
+    
+};
+
+export default { createUserService, getUserProfileService };

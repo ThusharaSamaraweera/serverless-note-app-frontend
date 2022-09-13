@@ -31,7 +31,6 @@ export const Login: React.FC = () => {
         console.log(user);
         setAuthUser({
           email: values.email,
-          token: user?.Session,
           id: user?.username,
         })
         setAuthenticated(true);

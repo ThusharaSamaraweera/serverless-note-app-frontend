@@ -6,7 +6,6 @@ export type globalContextType = {
   authUser: {
     email: string;
     id: string;
-    token: string;
   };
   setAuthUser: (value: any) => void;
 };
@@ -17,7 +16,6 @@ export const AppContext = createContext<globalContextType>({
   authUser: {
     email: "",
     id: "",
-    token: "",
   },
   setAuthUser: () => { },
 });

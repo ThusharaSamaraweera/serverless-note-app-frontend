@@ -12,5 +12,4 @@ export interface IProfile {
 export interface IAuthUser {
   id: string;
   email: string;
-  token: string;
 }

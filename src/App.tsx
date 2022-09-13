@@ -14,7 +14,6 @@ const App = () => {
   const [authUser, setAuthUser] = useState<IAuthUser>({
     email: "",
     id: "",
-    token: "",
   });
 
   const navigate = useNavigate();
@@ -23,7 +22,10 @@ const App = () => {
     try {
       await Auth.currentSession()
         .then((data) => {
-          console.log({data});
+          setAuthUser({
+            email: data.getIdToken().payload.email,
+            id: data.getIdToken().payload.sub,
+          })
           setAuthenticated(true);
         })
         .catch((e) => {

@@ -1,5 +1,5 @@
 import { FormikProvider, useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
 import LoadingButton from "./LoadingButton";
@@ -10,6 +10,34 @@ import { useAppContext } from "../lib/context/contextLib";
 const Profile: React.FC = () => {
   const {authUser} = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [profile, setProfile] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    birthDate: "",
+    country: "",
+    state: "",
+    phoneNumber: 0,
+    mobileNumber: 0,
+  });
+
+  const getUserProfile = async () => {
+    try {
+      const user = await userService.getUserProfileService(authUser.id);
+      if (user.status === 'success') { 
+        setProfile(user.data);
+        console.log(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getUserProfile();
+    setLoading(false);
+  }, []);
 
   const ProfileSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
@@ -22,24 +50,14 @@ const Profile: React.FC = () => {
     mobileNumber: Yup.number().required("Required"),
   });
 
-  const initialValues: IProfile = {
-    firstName: "",
-    lastName: "",
-    username: "",
-    birthDate: "",
-    country: "",
-    state: "",
-    phoneNumber: 0,
-    mobileNumber: 0,
-  };
-
   const formik = useFormik({
-    initialValues,
+    enableReinitialize: true,
+    initialValues: profile,
     validationSchema: ProfileSchema,
     onSubmit: async (values: IProfile) => {
       setLoading(true);
       try {
-        const newUser = await userService.createUserService({userId: "1223", ...values});
+        const newUser = await userService.createUserService({userId: authUser.id, ...values});
         console.log(newUser);
       } catch (error) {
         console.log(error);
@@ -125,7 +143,6 @@ const Profile: React.FC = () => {
           <Form.Group controlId="mobileNumber" className="col-12 col-sm-6">
             <Form.Label>Mobile number</Form.Label>
             <Form.Control
-              autoFocus
               type="tel"
               {...getFieldProps("mobileNumber")}
             />
@@ -140,7 +157,7 @@ const Profile: React.FC = () => {
             isLoading={isLoading}
             disabled={false}
           >
-            Sign up
+            Save
           </LoadingButton>
         </Form>
       </FormikProvider>
