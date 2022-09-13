@@ -28,9 +28,8 @@ export const Login: React.FC = () => {
       setLoading(true);
       try {
         await Auth.signIn(values.email, values.password);
-        alert("Logged in");
-        navigate("/");
         setAuthenticated(true);
+        navigate("/");
       } catch (error) {
         setLoading(false);
         console.log("error signing in", error);
