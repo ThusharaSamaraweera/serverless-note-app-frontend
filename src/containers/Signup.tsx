@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import LoadingButton from "./LoadingButton";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../lib/contextLib";
+import { useAppContext } from "../lib/context/contextLib";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -64,41 +64,6 @@ const Signup = () => {
       <div className="form">
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
-            {/* <Form.Group controlId="firstName">
-              <Form.Label>first Name</Form.Label>
-              <Form.Control
-                autoFocus
-                type="firstName"
-                {...getFieldProps("firstName")}
-              />
-              {errors.firstName && touched.firstName && (
-                <div className="error">{errors.firstName}</div>
-              )}
-            </Form.Group>
-
-            <Form.Group controlId="lastName">
-              <Form.Label>last Name</Form.Label>
-              <Form.Control
-                autoFocus
-                type="lastName"
-                {...getFieldProps("lastName")}
-              />
-              {errors.lastName && touched.lastName && (
-                <div className="error">{errors.lastName}</div>
-              )}
-            </Form.Group>
-
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                autoFocus
-                type="username"
-                {...getFieldProps("username")}
-              />
-              {errors.email && touched.email && (
-                <div className="error">{errors.email}</div>
-              )}
-            </Form.Group> */}
 
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>

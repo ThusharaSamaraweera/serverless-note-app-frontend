@@ -3,13 +3,13 @@ import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
-import { useAppContext } from "../lib/contextLib";
+import { useAppContext } from "../lib/context/contextLib";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "./LoadingButton";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { setAuthenticated } = useAppContext();
+  const { setAuthenticated, setAuthUser } = useAppContext();
   const [isLoading, setLoading] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -27,7 +27,13 @@ export const Login: React.FC = () => {
       console.log(values);
       setLoading(true);
       try {
-        await Auth.signIn(values.email, values.password);
+        const user = await Auth.signIn(values.email, values.password);
+        console.log(user);
+        setAuthUser({
+          email: values.email,
+          token: user?.Session,
+          id: user?.username,
+        })
         setAuthenticated(true);
         navigate("/");
       } catch (error) {

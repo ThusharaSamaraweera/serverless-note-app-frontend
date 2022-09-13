@@ -3,19 +3,27 @@ import "./App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import Routes from "./routes";
 import { LinkContainer } from "react-router-bootstrap";
-import { AppContext } from "./lib/contextLib";
+import { AppContext } from "./lib/context/contextLib";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { IAuthUser } from "./types";
 
 const App = () => {
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(true);
+  const [authUser, setAuthUser] = useState<IAuthUser>({
+    email: "",
+    id: "",
+    token: "",
+  });
+
   const navigate = useNavigate();
 
   const onLoad = async () => {
     try {
       await Auth.currentSession()
-        .then(() => {
+        .then((data) => {
+          console.log({data});
           setAuthenticated(true);
         })
         .catch((e) => {
@@ -71,7 +79,9 @@ const App = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <AppContext.Provider value={{ isAuthenticated, setAuthenticated }}>
+      <AppContext.Provider
+        value={{ isAuthenticated, setAuthenticated, authUser, setAuthUser }}
+      >
         <Routes />
       </AppContext.Provider>
     </div>

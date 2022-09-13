@@ -8,3 +8,9 @@ export interface IProfile {
   phoneNumber: number;
   mobileNumber: number;
 }
+
+export interface IAuthUser {
+  id: string;
+  email: string;
+  token: string;
+}

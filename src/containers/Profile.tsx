@@ -5,8 +5,10 @@ import * as Yup from "yup";
 import LoadingButton from "./LoadingButton";
 import { IProfile } from "../types";
 import userService from "../servers/userService";
+import { useAppContext } from "../lib/context/contextLib";
 
 const Profile: React.FC = () => {
+  const {authUser} = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const ProfileSchema = Yup.object().shape({
@@ -35,7 +37,6 @@ const Profile: React.FC = () => {
     initialValues,
     validationSchema: ProfileSchema,
     onSubmit: async (values: IProfile) => {
-      console.log(values);
       setLoading(true);
       try {
         const newUser = await userService.createUserService({userId: "1223", ...values});
@@ -51,6 +52,9 @@ const Profile: React.FC = () => {
 
   return (
     <div>
+      <div className="row">
+        <h3>Profile</h3>
+      </div>
       <FormikProvider value={formik}>
         <Form onSubmit={handleSubmit} className="row">
           <Form.Group controlId="firstName" className="col-12 col-sm-6">
@@ -83,7 +87,7 @@ const Profile: React.FC = () => {
 
           <Form.Group controlId="email" className="col-12 col-sm-6">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" disabled />
+            <Form.Control type="email" disabled value={authUser.email} />
           </Form.Group>
 
           <Form.Group controlId="birthDate" className="col-12 col-sm-6">
