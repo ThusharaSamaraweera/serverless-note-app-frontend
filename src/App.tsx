@@ -6,7 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./lib/context/contextLib";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import { IAuthUser } from "./types";
+import { IAuthUser, INote } from "./types";
 
 const App = () => {
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
@@ -15,6 +15,7 @@ const App = () => {
     email: "",
     id: "",
   });
+  const [noteList, setNoteList] = useState<INote[]>([]);
 
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const App = () => {
           setAuthUser({
             email: data.getIdToken().payload.email,
             id: data.getIdToken().payload.sub,
-          })
+          });
           setAuthenticated(true);
         })
         .catch((e) => {
@@ -69,7 +70,9 @@ const App = () => {
           <Nav activeKey={window.location.pathname}>
             {isAuthenticated ? (
               <>
-                <Nav.Link onClick={handleOnClickCreateNewNote}>Create New Note</Nav.Link>
+                <Nav.Link onClick={handleOnClickCreateNewNote}>
+                  Create New Note
+                </Nav.Link>
                 <Nav.Link onClick={handleOnClickProfile}>Profile</Nav.Link>
                 <Nav.Link onClick={handleOnLogout}>Logout</Nav.Link>
               </>
@@ -87,7 +90,14 @@ const App = () => {
         </Navbar.Collapse>
       </Navbar>
       <AppContext.Provider
-        value={{ isAuthenticated, setAuthenticated, authUser, setAuthUser }}
+        value={{
+          isAuthenticated,
+          setAuthenticated,
+          authUser,
+          setAuthUser,
+          noteList,
+          setNoteList,
+        }}
       >
         <Routes />
       </AppContext.Provider>

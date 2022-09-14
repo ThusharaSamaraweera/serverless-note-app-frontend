@@ -27,7 +27,6 @@ const NewNote = () => {
       setLoading(true);
       try {
         const newNote = await noteService.createNoteService({ userId: authUser.id, ...values });
-        console.log(newNote);
       } catch (error) {
         console.log(error);
       }

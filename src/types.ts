@@ -19,3 +19,12 @@ export interface INewNote {
   title: string;
   content: string;
 }
+
+export interface INote {
+  noteId: string;
+  userId: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  modifiedAt: string;
+}

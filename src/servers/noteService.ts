@@ -12,4 +12,17 @@ const createNoteService = (note: INewNote) => {
   }
 }
 
-export default { createNoteService };
+const getAllNotesService = async (userId: string) => {
+  try {
+    return API.get("notes", "/notes", {
+      queryStringParameters: {
+        userId,
+      },
+    });
+  } catch (error) { 
+    console.log(error);
+    throw new Error(error as string);
+  }
+}
+
+export default { createNoteService, getAllNotesService };
