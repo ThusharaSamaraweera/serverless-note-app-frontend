@@ -35,14 +35,12 @@ const Signup = () => {
         return;
       }
       setConfirmationPasswordError("");
-      console.log(values);
       setLoading(true);
       try {
         const newUser = await Auth.signUp({
           username: values.email,
           password: values.password
         });
-        console.log(newUser);
         setNewUser(newUser);
       } catch (error) {
         console.log(error);
@@ -113,7 +111,6 @@ const Signup = () => {
   const handleConfirmationSubmit = async (event: any) => {
     event.preventDefault();
     setLoading(true);
-    console.log(values)
     try {
       await Auth.confirmSignUp(values.email, confirmationCode);
       await Auth.signIn(values.email, values.password);
