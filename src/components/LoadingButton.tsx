@@ -8,6 +8,7 @@ type LoadingButtonProps = {
   className: string;
   disabled: boolean;
   children?: React.ReactNode | null;
+  onClick?: () => void;
 };
 
 export const LoadingButton: React.FC<LoadingButtonProps> = (props) => {
@@ -24,6 +25,7 @@ export const LoadingButton: React.FC<LoadingButtonProps> = (props) => {
       type={type}
       disabled={disabled || isLoading}
       className={`LoaderButton ${className}`}
+      onClick={rest.onClick}
     >
       {isLoading && <BsArrowRepeat className="spinning" />}
       {rest?.children}

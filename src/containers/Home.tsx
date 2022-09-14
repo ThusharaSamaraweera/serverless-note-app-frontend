@@ -44,6 +44,8 @@ export default function Home() {
           </ListGroup.Item>
         </LinkContainer>
 
+        {notes.length === 0 && <div className="my-2">You have not yet added any notes.</div>}
+
         {notes.map(({ noteId, content, createdAt, modifiedAt }) => (
           <LinkContainer key={noteId} to={`/notes/${noteId}`} className="py-3">
             <ListGroup.Item action>

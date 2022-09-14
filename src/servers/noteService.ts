@@ -10,7 +10,7 @@ const createNoteService = (note: INewNote) => {
     console.log(error);
     throw new Error(error as string);
   }
-}
+};
 
 const getAllNotesService = async (userId: string) => {
   try {
@@ -19,11 +19,11 @@ const getAllNotesService = async (userId: string) => {
         userId,
       },
     });
-  } catch (error) { 
+  } catch (error) {
     console.log(error);
     throw new Error(error as string);
   }
-}
+};
 
 const getNoteService = async (noteId: string, userId: string) => {
   try {
@@ -36,9 +36,13 @@ const getNoteService = async (noteId: string, userId: string) => {
     console.log(error);
     throw new Error(error as string);
   }
-}
+};
 
-const updateNoteService = async (noteId: string, userId: string, note: INewNote) => {
+const updateNoteService = async (
+  noteId: string,
+  userId: string,
+  note: INewNote
+) => {
   try {
     return API.put("notes", `/notes/${noteId}`, {
       body: note,
@@ -50,6 +54,25 @@ const updateNoteService = async (noteId: string, userId: string, note: INewNote)
     console.log(error);
     throw new Error(error as string);
   }
-}
+};
 
-export default { createNoteService, getAllNotesService, getNoteService, updateNoteService };
+const deleteNoteService = async (noteId: string, userId: string) => {
+  try {
+    return API.del("notes", `/notes/${noteId}`, {
+      queryStringParameters: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error as string);
+  }
+};
+
+export default {
+  createNoteService,
+  getAllNotesService,
+  getNoteService,
+  updateNoteService,
+  deleteNoteService,
+};

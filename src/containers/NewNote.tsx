@@ -5,8 +5,10 @@ import * as Yup from "yup";
 import noteService from "../servers/noteService";
 import LoadingButton from "../components/LoadingButton";
 import { useAppContext } from "../lib/context/contextLib";
+import { useNavigate } from "react-router-dom";
 
 const NewNote = () => {
+  const navigate = useNavigate();
   const {authUser} = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -28,6 +30,9 @@ const NewNote = () => {
       setLoading(true);
       try {
         const newNote = await noteService.createNoteService({ userId: authUser.id, ...values });
+        if (newNote.status === "success") {
+          navigate("/");
+        }
       } catch (error) {
         console.log(error);
       }

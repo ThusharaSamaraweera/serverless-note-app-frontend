@@ -9,13 +9,14 @@ import { useAppContext } from "../lib/context/contextLib";
 
 // types
 import { INote } from "../types";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormikProvider, useFormik } from "formik";
 import LoadingButton from "../components/LoadingButton";
 import { Form } from "react-bootstrap";
 
 const Note = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { authUser } = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [note, setNote] = useState<INote>({
@@ -46,7 +47,7 @@ const Note = () => {
 
   useEffect(() => {
     getNote();
-  }, [id]);
+  }, []);
 
   const NewNoteSchema = Yup.object().shape({
     title: Yup.string()
@@ -79,6 +80,20 @@ const Note = () => {
   });
 
   const { errors, touched, values, handleSubmit, getFieldProps } = formik;
+
+  const handleOnClickDelete = async () => {
+    setLoading(true);
+    if (!id) {
+      return;
+    }
+    try {
+      await noteService.deleteNoteService(id, authUser.id);
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
 
   return (
     <div>
@@ -133,6 +148,7 @@ const Note = () => {
             type="button"
             isLoading={isLoading}
             disabled={isLoading}
+            onClick={handleOnClickDelete}
           >
             Delete
           </LoadingButton>
