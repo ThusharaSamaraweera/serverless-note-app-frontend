@@ -58,7 +58,6 @@ const Profile: React.FC = () => {
       setLoading(true);
       try {
         const newUser = await userService.createUserService({userId: authUser.id, ...values});
-        console.log(newUser);
       } catch (error) {
         console.log(error);
       }

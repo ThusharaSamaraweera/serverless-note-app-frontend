@@ -1,4 +1,3 @@
-import { IProfile } from "../types";
 import { API } from "aws-amplify";
 
 const createUserService = (profile: any) => {

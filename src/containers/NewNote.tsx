@@ -1,11 +1,13 @@
-import { Formik, FormikProvider, useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import { INewNote } from "../types";
+import noteService from "../servers/noteService";
 import LoadingButton from "./LoadingButton";
+import { useAppContext } from "../lib/context/contextLib";
 
 const NewNote = () => {
+  const {authUser} = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [note, setNote] = useState({
     title: "",
@@ -21,8 +23,15 @@ const NewNote = () => {
     enableReinitialize: true,
     initialValues: note,
     validationSchema: NewNoteSchema,
-    onSubmit: async (values: INewNote) => {
+    onSubmit: async (values) => {
       setLoading(true);
+      try {
+        const newNote = await noteService.createNoteService({ userId: authUser.id, ...values });
+        console.log(newNote);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
     },
   });
 

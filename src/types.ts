@@ -15,6 +15,7 @@ export interface IAuthUser {
 }
 
 export interface INewNote {
+  userId: string;
   title: string;
   content: string;
 }
