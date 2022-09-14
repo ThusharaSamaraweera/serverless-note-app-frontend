@@ -39,12 +39,12 @@ export default function Home() {
         <LinkContainer to="/create-new-note">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
-            <span className="ml-2 font-weight-bold">Create a new note</span>
+            <span className="ml-3 font-weight-bold"> Create a new note</span>
           </ListGroup.Item>
         </LinkContainer>
 
         {notes.map(({ noteId, content, createdAt, modifiedAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`} className='py-3'>
+          <LinkContainer key={noteId} to={`/notes/${noteId}`} className="py-3">
             <ListGroup.Item action>
               <span className="font-weight-bold">
                 {content.trim().split("\n")[0]}
@@ -69,7 +69,17 @@ export default function Home() {
     return (
       <div className="notes">
         <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
-        <ListGroup>{!isLoading && renderNotesList(noteList)}</ListGroup>
+
+        <ListGroup>
+          {!isLoading ? (
+            renderNotesList(noteList)
+          ) : (
+            <div className="text-center">
+              <div className="spinner-border mr-4" role="status"></div>
+              <span className="ml-4 sr-only"> Loading...</span>
+            </div>
+          )}
+        </ListGroup>
       </div>
     );
   };

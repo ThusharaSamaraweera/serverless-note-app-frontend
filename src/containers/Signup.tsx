@@ -2,7 +2,7 @@ import { FormikProvider, useFormik } from "formik";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../lib/context/contextLib";

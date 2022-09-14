@@ -5,7 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../lib/context/contextLib";
 import { useNavigate } from "react-router-dom";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();

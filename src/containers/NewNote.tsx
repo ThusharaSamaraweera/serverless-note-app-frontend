@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
 import noteService from "../servers/noteService";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 import { useAppContext } from "../lib/context/contextLib";
 
 const NewNote = () => {

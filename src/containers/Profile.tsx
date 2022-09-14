@@ -2,7 +2,7 @@ import { FormikProvider, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../components/LoadingButton";
 import { IProfile } from "../types";
 import userService from "../servers/userService";
 import { useAppContext } from "../lib/context/contextLib";

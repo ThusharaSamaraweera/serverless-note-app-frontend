@@ -15,6 +15,7 @@ export default function Links() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-new-note" element={<NewNote />} />
+      <Route path="/notes/:id" element={<NewNote />} />
 
       {/* Finally, catch all unmatched routes */}
       <Route path="*" element={<NotFound />} />;
