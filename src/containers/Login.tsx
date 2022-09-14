@@ -24,11 +24,9 @@ export const Login: React.FC = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      console.log(values);
       setLoading(true);
       try {
         const user = await Auth.signIn(values.email, values.password);
-        console.log(user);
         setAuthUser({
           email: values.email,
           id: user?.username,
