@@ -9,8 +9,6 @@ export type globalContextType = {
     id: string;
   };
   setAuthUser: (value: any) => void;
-  noteList: INote[],
-  setNoteList: (value: INote[]) => void
 };
 
 export const AppContext = createContext<globalContextType>({
@@ -21,8 +19,6 @@ export const AppContext = createContext<globalContextType>({
     id: "",
   },
   setAuthUser: () => { },
-  noteList: [],
-  setNoteList: () => { }
 });
 
 export function useAppContext() {

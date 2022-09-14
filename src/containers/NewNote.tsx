@@ -9,19 +9,20 @@ import { useAppContext } from "../lib/context/contextLib";
 const NewNote = () => {
   const {authUser} = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [note, setNote] = useState({
-    title: "",
-    content: "",
-  });
 
   const NewNoteSchema = Yup.object().shape({
     title: Yup.string().required("Required").min(5, "Too Short!").max(50, "Too Long!"),
     content: Yup.string().required("Required").max(250, "Too Long!"),
   });
 
+  const initialValues = {
+    title: "",
+    content: "",
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: note,
+    initialValues,
     validationSchema: NewNoteSchema,
     onSubmit: async (values) => {
       setLoading(true);

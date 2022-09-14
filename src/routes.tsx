@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./containers/Home";
 import { Login } from "./containers/Login";
 import NewNote from "./containers/NewNote";
+import Note from "./containers/Note";
 import NotFound from "./containers/NotFound";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
@@ -15,7 +16,7 @@ export default function Links() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-new-note" element={<NewNote />} />
-      <Route path="/notes/:id" element={<NewNote />} />
+      <Route path="/notes/:id" element={<Note />} />
 
       {/* Finally, catch all unmatched routes */}
       <Route path="*" element={<NotFound />} />;

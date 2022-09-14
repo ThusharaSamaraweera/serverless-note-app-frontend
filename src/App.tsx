@@ -15,7 +15,6 @@ const App = () => {
     email: "",
     id: "",
   });
-  const [noteList, setNoteList] = useState<INote[]>([]);
 
   const navigate = useNavigate();
 
@@ -95,8 +94,6 @@ const App = () => {
           setAuthenticated,
           authUser,
           setAuthUser,
-          noteList,
-          setNoteList,
         }}
       >
         <Routes />

@@ -10,7 +10,8 @@ import { INote } from "../types";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const { noteList, setNoteList, isAuthenticated, authUser } = useAppContext();
+  const [noteList, setNoteList] = useState<INote[]>([]);
+  const { isAuthenticated, authUser } = useAppContext();
 
   const getNotes = async () => {
     if (!isAuthenticated) {
