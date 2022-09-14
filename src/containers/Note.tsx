@@ -68,7 +68,11 @@ const Note = () => {
       }
 
       try {
-        const updatedNote = await noteService.updateNoteService(id,authUser.id,values);
+        const updatedNote = await noteService.updateNoteService(
+          id,
+          authUser.id,
+          values
+        );
         if (updatedNote.status === "success") {
           setNote(updatedNote.data);
         }
@@ -88,12 +92,12 @@ const Note = () => {
     }
     try {
       await noteService.deleteNoteService(id, authUser.id);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
-  }
+  };
 
   return (
     <div>
@@ -134,24 +138,29 @@ const Note = () => {
             )}
           </Form.Group>
 
-          <LoadingButton
-            className="btn btn-success "
-            type="submit"
-            isLoading={isLoading}
-            disabled={isLoading}
-          >
-            Update
-          </LoadingButton>
-
-          <LoadingButton
-            className="btn btn-danger"
-            type="button"
-            isLoading={isLoading}
-            disabled={isLoading}
-            onClick={handleOnClickDelete}
-          >
-            Delete
-          </LoadingButton>
+          <div className="row">
+            <div>
+              <LoadingButton
+                className="btn btn-success col-12"
+                type="submit"
+                isLoading={isLoading}
+                disabled={isLoading}
+              >
+                Update
+              </LoadingButton>
+            </div>
+            <div>
+              <LoadingButton
+                className="btn btn-danger col-12"
+                type="button"
+                isLoading={isLoading}
+                disabled={isLoading}
+                onClick={handleOnClickDelete}
+              >
+                Delete
+              </LoadingButton>
+            </div>
+          </div>
         </Form>
       </FormikProvider>
     </div>

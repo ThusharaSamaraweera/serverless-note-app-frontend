@@ -44,7 +44,9 @@ export default function Home() {
           </ListGroup.Item>
         </LinkContainer>
 
-        {notes.length === 0 && <div className="my-2">You have not yet added any notes.</div>}
+        {notes.length === 0 && (
+          <div className="my-2">You have not yet added any notes.</div>
+        )}
 
         {notes.map(({ noteId, content, createdAt, modifiedAt }) => (
           <LinkContainer key={noteId} to={`/notes/${noteId}`} className="py-3">
@@ -54,10 +56,10 @@ export default function Home() {
               </span>
               <br />
               <div className="row">
-                <div className="text-muted col-6">
+                <div className="text-muted col-12 col-sm-6">
                   Created: {new Date(createdAt).toLocaleString()}
                 </div>
-                <span className="text-muted col-6">
+                <span className="text-muted col-12 col-sm-6">
                   updated: {new Date(modifiedAt).toLocaleString()}
                 </span>
               </div>

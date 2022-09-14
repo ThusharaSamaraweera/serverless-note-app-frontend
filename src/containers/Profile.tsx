@@ -151,7 +151,7 @@ const Profile: React.FC = () => {
           </Form.Group>
 
           <LoadingButton
-            className="btn btn-success mx-3"
+            className="btn btn-success mx-2 mt-3"
             type="submit"
             isLoading={isLoading}
             disabled={false}
