@@ -62,16 +62,35 @@ const Note = () => {
     validationSchema: NewNoteSchema,
     onSubmit: async (values) => {
       setLoading(true);
+      if (!id) {
+        return;
+      }
 
+      try {
+        const updatedNote = await noteService.updateNoteService(id,authUser.id,values);
+        if (updatedNote.status === "success") {
+          setNote(updatedNote.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
       setLoading(false);
     },
   });
 
   const { errors, touched, values, handleSubmit, getFieldProps } = formik;
 
-
   return (
     <div>
+      <h3>{note.title}</h3>
+      <div className="row mb-8">
+        <div className="text-muted col-6">
+          Created: {new Date(note.createdAt).toLocaleString()}
+        </div>
+        <span className="text-muted col-6">
+          updated: {new Date(note.modifiedAt).toLocaleString()}
+        </span>
+      </div>
       <FormikProvider value={formik}>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="title" className="my-2">
@@ -111,7 +130,7 @@ const Note = () => {
 
           <LoadingButton
             className="btn btn-danger"
-            type="submit"
+            type="button"
             isLoading={isLoading}
             disabled={isLoading}
           >

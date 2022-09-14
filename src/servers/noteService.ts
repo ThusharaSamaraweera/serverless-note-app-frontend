@@ -38,4 +38,18 @@ const getNoteService = async (noteId: string, userId: string) => {
   }
 }
 
-export default { createNoteService, getAllNotesService, getNoteService };
+const updateNoteService = async (noteId: string, userId: string, note: INewNote) => {
+  try {
+    return API.put("notes", `/notes/${noteId}`, {
+      body: note,
+      queryStringParameters: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error as string);
+  }
+}
+
+export default { createNoteService, getAllNotesService, getNoteService, updateNoteService };
