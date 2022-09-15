@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FormikProvider, useFormik } from "formik";
 import LoadingButton from "../components/LoadingButton";
 import { Form } from "react-bootstrap";
+import { NoteCategories } from "../constants/categories";
 
 const Note = () => {
   const { id } = useParams();
@@ -25,6 +26,7 @@ const Note = () => {
     noteId: "",
     title: "",
     content: "",
+    categoryId: 4,
     createdAt: "",
     modifiedAt: "",
   });
@@ -56,6 +58,7 @@ const Note = () => {
       .min(5, "Too Short!")
       .max(50, "Too Long!"),
     content: Yup.string().required("Required").max(250, "Too Long!"),
+    categoryId: Yup.number(),
   });
 
   const formik = useFormik({
@@ -72,7 +75,7 @@ const Note = () => {
         const updatedNote = await noteService.updateNoteService(
           id,
           authUser.id,
-          values
+          values,
         );
         if (updatedNote.status === "success") {
           setNote(updatedNote.data);
@@ -125,6 +128,22 @@ const Note = () => {
             {errors.title && touched.title && (
               <div className="error">{errors.title}</div>
             )}
+          </Form.Group>
+
+          <Form.Group controlId="category" className="my-2">
+            <Form.Label>Category</Form.Label>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              {...getFieldProps("categoryId")}
+              disabled={isLoading}
+            >
+              {NoteCategories.map(({ label, categoryId }) => (
+                <option key={categoryId} value={categoryId}>
+                  {label}
+                </option>
+              ))}
+            </select>
           </Form.Group>
 
           <Form.Group controlId="content" className="my-2">
