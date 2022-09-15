@@ -6,14 +6,18 @@ import noteService from "../servers/noteService";
 import LoadingButton from "../components/LoadingButton";
 import { useAppContext } from "../lib/context/contextLib";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const NewNote = () => {
   const navigate = useNavigate();
-  const {authUser} = useAppContext();
+  const { authUser } = useAppContext();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const NewNoteSchema = Yup.object().shape({
-    title: Yup.string().required("Required").min(5, "Too Short!").max(50, "Too Long!"),
+    title: Yup.string()
+      .required("Required")
+      .min(5, "Too Short!")
+      .max(50, "Too Long!"),
     content: Yup.string().required("Required").max(250, "Too Long!"),
   });
 
@@ -29,11 +33,15 @@ const NewNote = () => {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const newNote = await noteService.createNoteService({ userId: authUser.id, ...values });
+        const newNote = await noteService.createNoteService({
+          userId: authUser.id,
+          ...values,
+        });
         if (newNote.status === "success") {
           navigate("/");
         }
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.message);
         console.log(error);
       }
       setLoading(false);

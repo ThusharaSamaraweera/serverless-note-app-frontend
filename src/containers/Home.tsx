@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 import { useAppContext } from "../lib/context/contextLib";
 import noteService from "../servers/noteService";
@@ -11,7 +12,7 @@ import { INote } from "../types";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [noteList, setNoteList] = useState<INote[]>([]);
-  const { isAuthenticated, authUser } = useAppContext();
+  const { isAuthenticated, authUser, setError } = useAppContext();
 
   const getNotes = async () => {
     if (!isAuthenticated) {
@@ -24,8 +25,9 @@ export default function Home() {
       if (notes.status === "success") {
         setNoteList(notes.data);
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
+      toast.error(e.message);
     }
     setIsLoading(false);
   };

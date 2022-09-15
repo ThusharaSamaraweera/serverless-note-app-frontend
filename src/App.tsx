@@ -6,7 +6,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./lib/context/contextLib";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import { IAuthUser, INote } from "./types";
+import { IAuthUser } from "./types";
+import { toast, ToastContainer } from "react-toastify";
 
 const App = () => {
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
@@ -15,6 +16,7 @@ const App = () => {
     email: "",
     id: "",
   });
+  const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -28,11 +30,12 @@ const App = () => {
           });
           setAuthenticated(true);
         })
-        .catch((e) => {
+        .catch((e: any) => {
           setAuthenticated(false);
           console.log(e);
         });
-    } catch (e) {
+    } catch (e: any) {
+      toast.success(e.message);
       console.log(e);
     }
     setIsAuthenticating(false);
@@ -88,12 +91,19 @@ const App = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <ToastContainer
+        closeButton={false}
+        position="top-right"
+        autoClose={8000}
+      />
       <AppContext.Provider
         value={{
           isAuthenticated,
           setAuthenticated,
           authUser,
           setAuthUser,
+          error,
+          setError,
         }}
       >
         <Routes />
