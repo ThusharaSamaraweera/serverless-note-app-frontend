@@ -3,7 +3,7 @@ import "./App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import Routes from "./routes";
 import { LinkContainer } from "react-router-bootstrap";
-import { AppContext } from "./lib/context/contextLib";
+import { AppContext } from "./utils/context/contextLib";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { IAuthUser } from "./types";
@@ -16,7 +16,6 @@ const App = () => {
     email: "",
     id: "",
   });
-  const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -102,8 +101,6 @@ const App = () => {
           setAuthenticated,
           authUser,
           setAuthUser,
-          error,
-          setError,
         }}
       >
         <Routes />

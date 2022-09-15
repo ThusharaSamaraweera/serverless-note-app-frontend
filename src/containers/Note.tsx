@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 // services
-import noteService from "../servers/noteService";
+import noteService from "../services/noteService";
 
 // context
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "../utils/context/contextLib";
 
 // types
 import { INote } from "../types";
@@ -76,7 +77,8 @@ const Note = () => {
         if (updatedNote.status === "success") {
           setNote(updatedNote.data);
         }
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.message);
         console.log(error);
       }
       setLoading(false);

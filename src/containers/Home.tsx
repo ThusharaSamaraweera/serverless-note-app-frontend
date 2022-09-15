@@ -4,8 +4,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
 import { toast } from "react-toastify";
 
-import { useAppContext } from "../lib/context/contextLib";
-import noteService from "../servers/noteService";
+import { useAppContext } from "../utils/context/contextLib";
+import noteService from "../services/noteService";
 
 import { INote } from "../types";
 import NoteCart from "../components/NoteCart";
@@ -13,7 +13,7 @@ import NoteCart from "../components/NoteCart";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [noteList, setNoteList] = useState<INote[]>([]);
-  const { isAuthenticated, authUser, setError } = useAppContext();
+  const { isAuthenticated, authUser } = useAppContext();
 
   const getNotes = async () => {
     if (!isAuthenticated) {

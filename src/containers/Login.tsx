@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { toast} from "react-toastify";
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "../utils/context/contextLib";
 import LoadingButton from "../components/LoadingButton";
 
 export const Login: React.FC = () => {

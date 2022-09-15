@@ -2,9 +2,9 @@ import { FormikProvider, useFormik } from "formik";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import noteService from "../servers/noteService";
+import noteService from "../services/noteService";
 import LoadingButton from "../components/LoadingButton";
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "../utils/context/contextLib";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

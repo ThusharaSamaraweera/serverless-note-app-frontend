@@ -1,5 +1,4 @@
 import { useContext, createContext } from "react";
-import { INote } from "../../types";
 
 export type globalContextType = {
   isAuthenticated: boolean;
@@ -9,8 +8,6 @@ export type globalContextType = {
     id: string;
   };
   setAuthUser: (value: any) => void;
-  error: string;
-  setError: (value: string) => void;
 };
 
 export const AppContext = createContext<globalContextType>({
@@ -21,8 +18,6 @@ export const AppContext = createContext<globalContextType>({
     id: "",
   },
   setAuthUser: () => { },
-  error: "",
-  setError: () => { },
 });
 
 export function useAppContext() {

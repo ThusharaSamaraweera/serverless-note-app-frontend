@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import LoadingButton from "../components/LoadingButton";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "../utils/context/contextLib";
 import { toast } from "react-toastify";
 
 const Signup = () => {
