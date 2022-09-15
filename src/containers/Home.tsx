@@ -8,6 +8,7 @@ import { useAppContext } from "../lib/context/contextLib";
 import noteService from "../servers/noteService";
 
 import { INote } from "../types";
+import NoteCart from "../components/NoteCart";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,23 +51,14 @@ export default function Home() {
           <div className="my-2">You have not yet added any notes.</div>
         )}
 
-        {notes.map(({ noteId, content, createdAt, modifiedAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`} className="py-3">
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {content.trim().split("\n")[0]}
-              </span>
-              <br />
-              <div className="row">
-                <div className="text-muted col-12 col-sm-6">
-                  Created: {new Date(createdAt).toLocaleString()}
-                </div>
-                <span className="text-muted col-12 col-sm-6">
-                  updated: {new Date(modifiedAt).toLocaleString()}
-                </span>
-              </div>
-            </ListGroup.Item>
-          </LinkContainer>
+        {notes.map(({ noteId, title, createdAt, modifiedAt }) => (
+          <NoteCart
+            key={noteId}
+            title={title}
+            noteId={noteId}
+            createdAt={createdAt}
+            modifiedAt={modifiedAt}
+          />
         ))}
       </>
     );
