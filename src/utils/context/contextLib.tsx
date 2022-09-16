@@ -1,5 +1,4 @@
 import { useContext, createContext } from "react";
-import { INote } from "../../types";
 
 export type globalContextType = {
   isAuthenticated: boolean;

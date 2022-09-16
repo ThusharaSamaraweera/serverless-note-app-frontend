@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "./context/contextLib";
 
 const AuthenticatedRoute = ({children}) => {
   const { pathname, search } = useLocation();

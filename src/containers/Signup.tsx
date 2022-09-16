@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import LoadingButton from "../components/LoadingButton";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../lib/context/contextLib";
+import { useAppContext } from "../utils/context/contextLib";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -42,8 +43,9 @@ const Signup = () => {
           password: values.password
         });
         setNewUser(newUser);
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        toast.error(error.message);
       }
       setLoading(false);
     },

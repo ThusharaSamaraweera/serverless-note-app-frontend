@@ -4,8 +4,9 @@ import { Form } from "react-bootstrap";
 import * as Yup from "yup";
 import LoadingButton from "../components/LoadingButton";
 import { IProfile } from "../types";
-import userService from "../servers/userService";
-import { useAppContext } from "../lib/context/contextLib";
+import userService from "../services/userService";
+import { useAppContext } from "../utils/context/contextLib";
+import { toast } from "react-toastify";
 
 const Profile: React.FC = () => {
   const {authUser} = useAppContext();
@@ -28,7 +29,8 @@ const Profile: React.FC = () => {
         setProfile(user.data);
         console.log(user);
       }
-    } catch (error) {
+    } catch (error:any) {
+      toast.error(error.message);
       console.log(error);
     }
   };

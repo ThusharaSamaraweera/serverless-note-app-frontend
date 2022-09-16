@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
-import { useAppContext } from "../lib/context/contextLib";
 import { useNavigate } from "react-router-dom";
+import { toast} from "react-toastify";
+import { useAppContext } from "../utils/context/contextLib";
 import LoadingButton from "../components/LoadingButton";
 
 export const Login: React.FC = () => {
@@ -30,10 +31,11 @@ export const Login: React.FC = () => {
         setAuthUser({
           email: values.email,
           id: user?.username,
-        })
+        });
         setAuthenticated(true);
         navigate("/");
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.message);
         setLoading(false);
         console.log("error signing in", error);
       }

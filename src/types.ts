@@ -18,6 +18,7 @@ export interface INewNote {
   userId: string;
   title: string;
   content: string;
+  categoryId: number;
 }
 
 export interface INote {
@@ -25,6 +26,7 @@ export interface INote {
   userId: string;
   title: string;
   content: string;
+  categoryId: number;
   createdAt: string;
   modifiedAt: string;
 }
